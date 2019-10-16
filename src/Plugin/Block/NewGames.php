@@ -6,6 +6,7 @@ namespace Drupal\opendrupal_pegi\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 //use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\node\Entity\Node;
 //use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -39,18 +40,19 @@ class NewGames extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    // $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
-    // ->condition('type', 'game')
-    // ->execute();
-    //$games = $node_storage->loadMultiple($gameids);
-    // foreach ($gameids as $game) {
-    //   echo $game->title->value;
-    // }
+
+    //Using entity query & loadMultiple
+     $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
+     ->condition('type', 'game')
+     ->execute();
+     $gamereviews = Node::loadMultiple($gameids);
     //$entities = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'page']);
     //current(\Drupal::entityTypeManager()->getStorage('node') ->loadByProperties( [ 'title' => $title, 'type' => 'authority' ] ) ); 
+    
+    //Using the storage object
     $games = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'game']);
     $gamelist = [];
-    foreach ($games as $game) {
+    foreach ($gamereviews as $game) {
          $gamelist[]=$game->title->value;
      }
     
