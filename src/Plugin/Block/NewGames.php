@@ -30,6 +30,8 @@ class NewGames extends BlockBase {
       //Using entity query & loadMultiple
       $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
       ->condition('type', 'game')
+      ->sort('nid', 'DESC')
+      ->range(0, 5)
       ->execute();
       $gamereviews = Node::loadMultiple($gameids);
      //$entities = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'page']);
