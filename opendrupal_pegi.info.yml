@@ -1,0 +1,8 @@
+name: OpenDrupal Pegi
+type: module
+description: 'OpenDrupal Pegi exercises.'
+package: OpenDrupal 
+version: 8.x-1.x
+core: 8.x
+dependencies:
+  - drupal:entity_reference
