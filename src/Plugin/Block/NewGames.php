@@ -6,6 +6,7 @@ namespace Drupal\opendrupal_pegi\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 //use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\node\Entity\Node;
 //use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -30,6 +31,7 @@ class NewGames extends BlockBase {
       //Using entity query & loadMultiple
       $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
       ->condition('type', 'game')
+      ->condition('status', 1)
       ->sort('nid', 'DESC')
       ->range(0, 5)
       ->execute();
@@ -50,7 +52,8 @@ class NewGames extends BlockBase {
     $gamereviews = $this->getGameNodes();
     $gamelist = [];
     foreach ($gamereviews as $game) {
-         $gamelist[]=$game->title->value;
+        // $gamelist[]=$game->title->value;
+         $gamelist[]=$game->toLink();
      }
     
     $items = ["this is one","another item", "oh, my","item this is"];
