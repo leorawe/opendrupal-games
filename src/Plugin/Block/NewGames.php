@@ -27,12 +27,17 @@ class NewGames extends BlockBase {
    *   
    */
   protected function getGameNodes() {
-    //$this->entityTypeManager = $container->get('entity_type.manager');
-    //$entities = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'article']);
-    $nodes = $this->entityTypeManager->getStorage('node')->getQuery()
+      //Using entity query & loadMultiple
+      $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
       ->condition('type', 'game')
       ->execute();
-    return ($nodes);
+      $gamereviews = Node::loadMultiple($gameids);
+     //$entities = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'page']);
+     //current(\Drupal::entityTypeManager()->getStorage('node') ->loadByProperties( [ 'title' => $title, 'type' => 'authority' ] ) ); 
+     
+     //Using the storage object
+     $games = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'game']);
+    return ($gamereviews);
   }
 
 
@@ -40,17 +45,7 @@ class NewGames extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-
-    //Using entity query & loadMultiple
-     $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
-     ->condition('type', 'game')
-     ->execute();
-     $gamereviews = Node::loadMultiple($gameids);
-    //$entities = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'page']);
-    //current(\Drupal::entityTypeManager()->getStorage('node') ->loadByProperties( [ 'title' => $title, 'type' => 'authority' ] ) ); 
-    
-    //Using the storage object
-    $games = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'game']);
+    $gamereviews = $this->getGameNodes();
     $gamelist = [];
     foreach ($gamereviews as $game) {
          $gamelist[]=$game->title->value;
