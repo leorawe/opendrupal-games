@@ -32,7 +32,7 @@ class GameForm extends ConfigFormBase {
     
     //up to how many links are allowed?
     $form['max_items']=[
-      '#type' => 'textfield',
+      '#type' => 'number',
       '#default_value' => $config->get('opendrupal_pegi.max_items'),
     ];
 

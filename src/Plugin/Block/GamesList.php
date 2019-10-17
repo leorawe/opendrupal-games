@@ -28,8 +28,11 @@ class GamesList extends BlockBase {
    *   
    */
   protected function getGameNodes() {
+      $config = \Drupal::config('opendrupal_pegi.settings');
+      $maxitems= intval($config->get('opendrupal_pegi.max_items'));
+      $max = is_int($maxitems)? $maxitems : 5;
       //Using entity query & loadMultiple
-      $max = 5;
+      //$max = 5;
       $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
       ->condition('type', 'game')
       ->condition('status', 1)
@@ -49,11 +52,14 @@ class GamesList extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    //$config = \Drupal::config('opendrupal_pegi.settings');
+    //$maxitems= $config->get('opendrupal_pegi.max_items');
     $gamereviews = $this->getGameNodes();
     $gamelist = [];
     foreach ($gamereviews as $game) {
         // $gamelist[]=$game->title->value;
-         $gamelist[]=$game->toLink();
+        //$gamelist[]= intval($maxitems);
+        $gamelist[]=$game->toLink();
      }
     
     //$items = ["this is one","another item", "oh, my","item this is"];
