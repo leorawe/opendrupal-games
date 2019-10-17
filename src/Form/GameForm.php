@@ -40,6 +40,7 @@ class GameForm extends ConfigFormBase {
       '#type' => 'submit',
       '#value' => $this->t('Set Max Num'),
     ];
+    $form['#cache'] = ['max-age' => 0];
     return $form;
   }
 
