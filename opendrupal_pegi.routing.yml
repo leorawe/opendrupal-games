@@ -1,0 +1,7 @@
+opendrupal_pegi.game_form:
+  path: '/admin/config/opendrupal_pegi/config'
+  defaults:
+    _form: '\Drupal\opendrupal_pegi\Form\GameForm'
+    _title: 'Game Configuration Form'
+  requirements:
+    _permission: 'administer site configuration'

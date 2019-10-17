@@ -19,7 +19,7 @@ use Drupal\node\Entity\Node;
  * )
  */
 
-class NewGames extends BlockBase {
+class GamesList extends BlockBase {
 
  /**
    * Gets game review nodes .
@@ -29,11 +29,12 @@ class NewGames extends BlockBase {
    */
   protected function getGameNodes() {
       //Using entity query & loadMultiple
+      $max = 5;
       $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
       ->condition('type', 'game')
       ->condition('status', 1)
       ->sort('nid', 'DESC')
-      ->range(0, 5)
+      ->range(0, $max)
       ->execute();
       $gamereviews = Node::loadMultiple($gameids);
      //$entities = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'page']);
@@ -43,7 +44,6 @@ class NewGames extends BlockBase {
      $games = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'game']);
     return ($gamereviews);
   }
-
 
   /**
    * {@inheritdoc}
@@ -56,7 +56,7 @@ class NewGames extends BlockBase {
          $gamelist[]=$game->toLink();
      }
     
-    $items = ["this is one","another item", "oh, my","item this is"];
+    //$items = ["this is one","another item", "oh, my","item this is"];
     $build = [
       '#theme' => 'item_list',
       '#items' => $gamelist,
