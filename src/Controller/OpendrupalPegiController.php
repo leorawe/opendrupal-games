@@ -51,7 +51,7 @@ class OpendrupalPegiController extends ControllerBase {
     // }
     if($games)
       foreach ($games as $game) {
-        $build['games'][] = \Drupal::entityTypeManager()->getViewBuilder('node')->view($game);
+        $build['games'][] = \Drupal::entityTypeManager()->getViewBuilder('node')->view($game, 'teaser');
       }
     else {
       $build['top'] = ['#markup' => '<p>no published game reviews found</p>'];
