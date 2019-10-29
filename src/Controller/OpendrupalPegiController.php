@@ -20,29 +20,37 @@ class OpendrupalPegiController extends ControllerBase {
    *
    **/
 
-  protected function getLoadGames() {
-    $gameids = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'game']);
-    return ($gameids);
-  }
+  // protected function getLoadGames() {
+  //   $gameids = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'game']);
+  //   return ($gameids);
+  // }
   /** 
    * @return array
    *   Render array of page output.
    */
   public function gamesOverview() {
-    $gamelist = [];
-    $gameids = $this->getLoadGames();
+  //   $gamelist = [];
+  //   $gameids = $this->getLoadGames();
     
-    foreach ($gameids as $game) {
-      $gamelist[]=$game->toLink();
-      //$gamelist[]=$game->title->value;
-   }
+  //   foreach ($gameids as $game) {
+  //     $gamelist[]=$game->toLink();
+  //     //$gamelist[]=$game->title->value;
+  //  }
   
     //$items = ["test","test2"];
 
-    $build['games'] = array(
-      '#theme' => 'item_list',
-      '#items' => $gamelist,
-    );
+    // $build['games'] = array(
+    //   '#theme' => 'item_list',
+    //   '#items' => $gamelist,
+    // );
+    $build = [];
+    $games = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'game']);
+    // if ($entity = reset($entities)) {
+    //   $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($entity);
+    // }
+    foreach ($games as $game) {
+      $build['games'][] = \Drupal::entityTypeManager()->getViewBuilder('node')->view($game);
+    }
 
     return $build;
   }
