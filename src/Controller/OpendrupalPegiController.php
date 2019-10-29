@@ -44,6 +44,7 @@ class OpendrupalPegiController extends ControllerBase {
     //   '#items' => $gamelist,
     // );
     $limit = 5;
+    $pagenum = \Drupal::request()->query->get('page');
     $build = [];
     $games = \Drupal::entityTypeManager()->getStorage('node')
     ->loadByProperties(['type' => 'game', 'status' => 1]);
@@ -65,7 +66,7 @@ class OpendrupalPegiController extends ControllerBase {
       $build['top'] = ['#markup' => '<p>no published game reviews found</p>'];
     }
 
-    $build['footer'] = ['#markup' => 'My Footer: xyz experiment'];
+    $build['footer'] = ['#markup' => 'My Footer: xyz experiment on page: '.$pagenum];
    
     return $build;
   }
