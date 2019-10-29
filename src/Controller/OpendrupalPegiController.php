@@ -44,20 +44,26 @@ class OpendrupalPegiController extends ControllerBase {
     //   '#items' => $gamelist,
     // );
     $limit = 5;
-    $pagenum = \Drupal::request()->query->get('page');
+
+    //$pagenum = \Drupal::request()->query->get('page');
+
     $build = [];
-    $games = \Drupal::entityTypeManager()->getStorage('node')
-    ->loadByProperties(['type' => 'game', 'status' => 1]);
+    // $games = \Drupal::entityTypeManager()->getStorage('node')
+    // ->loadByProperties(['type' => 'game', 'status' => 1]);
+
+    $result = \Drupal::entityQuery('node')
+    ->condition('type', 'game')
+    ->condition('status', 1)
+    ->pager($limit)
+    ->sort('created', 'ASC')
+    ->execute();
+    $games = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($result);
     if($games){
-      $count = 0;
       foreach ($games as $game) {
-        if($count < $limit){
         $build['games'][] = \Drupal::entityTypeManager()->getViewBuilder('node')
         ->view($game, 'teaser');
-        $count++;
         }
-      }
-    pager_default_initialize(count($games), 5);
+
     $build['pager'] = array(
       '#type' => 'pager',
     );
@@ -66,7 +72,7 @@ class OpendrupalPegiController extends ControllerBase {
       $build['top'] = ['#markup' => '<p>no published game reviews found</p>'];
     }
 
-    $build['footer'] = ['#markup' => 'My Footer: xyz experiment on page: '.$pagenum];
+    $build['footer'] = ['#markup' => 'My Footer: xyz experiment on page: '];
    
     return $build;
   }
