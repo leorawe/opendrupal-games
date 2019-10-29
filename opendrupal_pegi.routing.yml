@@ -5,3 +5,11 @@ opendrupal_pegi.game_form:
     _title: 'Game Configuration Form'
   requirements:
     _permission: 'administer site configuration'
+
+opendrupal_pegi.games_overview:
+  path: '/games'
+  defaults:
+    _controller: '\Drupal\opendrupal_pegi\Controller\OpendrupalPegiController::gamesOverview'
+    _title: 'Games'
+  requirements:
+    _permission: 'access content'
