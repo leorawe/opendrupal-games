@@ -43,21 +43,30 @@ class OpendrupalPegiController extends ControllerBase {
     //   '#theme' => 'item_list',
     //   '#items' => $gamelist,
     // );
+    $limit = 5;
     $build = [];
     $games = \Drupal::entityTypeManager()->getStorage('node')
     ->loadByProperties(['type' => 'game', 'status' => 1]);
-    // if ($entity = reset($entities)) {
-    //   $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($entity);
-    // }
-    if($games)
+    if($games){
+      $count = 0;
       foreach ($games as $game) {
-        $build['games'][] = \Drupal::entityTypeManager()->getViewBuilder('node')->view($game, 'teaser');
+        if($count < $limit){
+        $build['games'][] = \Drupal::entityTypeManager()->getViewBuilder('node')
+        ->view($game, 'teaser');
+        $count++;
+        }
       }
+    pager_default_initialize(count($games), 5);
+    $build['pager'] = array(
+      '#type' => 'pager',
+    );
+       }
     else {
       $build['top'] = ['#markup' => '<p>no published game reviews found</p>'];
     }
 
     $build['footer'] = ['#markup' => 'My Footer: xyz experiment'];
+   
     return $build;
   }
 
