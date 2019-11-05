@@ -43,7 +43,7 @@ class OpendrupalPegiController extends ControllerBase {
     //   '#theme' => 'item_list',
     //   '#items' => $gamelist,
     // );
-    //$limit = 3;
+    $limit = 3;
 
     //$pagenum = \Drupal::request()->query->get('page');
 
@@ -55,7 +55,7 @@ class OpendrupalPegiController extends ControllerBase {
     ->condition('type', 'game')
     ->condition('status', 1)
     ->sort('created', 'ASC')
-    ->pager(5)
+    ->pager($limit)
     ->execute();
    $games = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($result);
    $count_games = count($games);

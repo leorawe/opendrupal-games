@@ -3,12 +3,15 @@
 namespace Drupal\opendrupal_pegi\Plugin\Block;
 
 //use Drupal\Core\Block\Annotation\Block;
+
+//use Drupal\config_override_integration_test\CacheabilityMetadataConfigOverride;
 use Drupal\Core\Block\BlockBase;
 //use Drupal\Core\Annotation\Translation;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Entity\ContentEntityInterface;
+//use Drupal\Core\Entity\EntityTypeManager;
+//use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\node\Entity\Node;
 //use Symfony\Component\DependencyInjection\ContainerInterface;
+//use Drupal\Core\Cache\CacheableDependencyInterface;
 
 /**
  * Provides a 'Opendrupal Pegi' block.
@@ -62,11 +65,18 @@ class GamesList extends BlockBase {
         $gamelist[]=$game->toLink();
      }
     
+     //addCacheableDependency
+    // $cachableMetadata = new CacheableMetadata();
+    // $cachableMetadata->setCacheContext(['user.permissions']);
+    // $cachableMetadata->setCacheTags(['node_list']);
     //$items = ["this is one","another item", "oh, my","item this is"];
     $build = [
       '#theme' => 'item_list',
       '#items' => $gamelist,
     ];
+    $build['#cache']['tags'][] = 'node_list';
+    $build['#cache']['contexts'][] = 'user.permissions';
+    //$cachableMetadata->applyTo($build);
     return $build;
   }
 }
