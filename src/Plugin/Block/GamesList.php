@@ -70,6 +70,7 @@ class GamesList extends BlockBase {
     $cachableMetadata = new CacheableMetadata();
     $cachableMetadata->setCacheContexts(['user.permissions']);
     $cachableMetadata->setCacheTags(['node_list']);
+    $cachableMetadata->setCacheTags(['config:opendrupal_pegi.settings']);
     //$items = ["this is one","another item", "oh, my","item this is"];
     $build = [
       '#theme' => 'item_list',
@@ -77,6 +78,7 @@ class GamesList extends BlockBase {
     ];
     //$build['#cache']['tags']= $config->getCacheTags();
     //$build['#cache']['contexts'][] = 'user.permissions';
+
     $cachableMetadata->applyTo($build);
     return $build;
   }
