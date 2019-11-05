@@ -36,10 +36,10 @@ class GameForm extends ConfigFormBase {
       '#default_value' => $config->get('opendrupal_pegi.max_items'),
     ];
 
-    $form['submit']=[
-      '#type' => 'submit',
-      '#value' => $this->t('Set Max Num'),
-    ];
+    // $form['submit']=[
+    //   '#type' => 'submit',
+    //   '#value' => $this->t('Set Max Num'),
+    // ];
     $form['#cache'] = ['max-age' => 0];
     return $form;
   }

@@ -6,6 +6,7 @@ namespace Drupal\opendrupal_pegi\Plugin\Block;
 
 //use Drupal\config_override_integration_test\CacheabilityMetadataConfigOverride;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Cache\CacheableMetadata;
 //use Drupal\Core\Annotation\Translation;
 //use Drupal\Core\Entity\EntityTypeManager;
 //use Drupal\Core\Entity\ContentEntityInterface;
@@ -47,7 +48,7 @@ class GamesList extends BlockBase {
      //current(\Drupal::entityTypeManager()->getStorage('node') ->loadByProperties( [ 'title' => $title, 'type' => 'authority' ] ) ); 
      
      //Using the storage object
-     $games = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'game']);
+     //$games = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'game']);
     return ($gamereviews);
   }
 
@@ -66,17 +67,17 @@ class GamesList extends BlockBase {
      }
     
      //addCacheableDependency
-    // $cachableMetadata = new CacheableMetadata();
-    // $cachableMetadata->setCacheContext(['user.permissions']);
-    // $cachableMetadata->setCacheTags(['node_list']);
+    $cachableMetadata = new CacheableMetadata();
+    $cachableMetadata->setCacheContexts(['user.permissions']);
+    $cachableMetadata->setCacheTags(['node_list']);
     //$items = ["this is one","another item", "oh, my","item this is"];
     $build = [
       '#theme' => 'item_list',
       '#items' => $gamelist,
     ];
-    $build['#cache']['tags'][] = 'node_list';
-    $build['#cache']['contexts'][] = 'user.permissions';
-    //$cachableMetadata->applyTo($build);
+    //$build['#cache']['tags']= $config->getCacheTags();
+    //$build['#cache']['contexts'][] = 'user.permissions';
+    $cachableMetadata->applyTo($build);
     return $build;
   }
 }
