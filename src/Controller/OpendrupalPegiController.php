@@ -54,7 +54,7 @@ class OpendrupalPegiController extends ControllerBase {
     $result = \Drupal::entityQuery('node')
     ->condition('type', 'game')
     ->condition('status', 1)
-    ->sort('created', 'ASC')
+    ->sort('created', 'DESC')
     ->pager($limit)
     ->execute();
    $games = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($result);

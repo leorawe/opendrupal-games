@@ -1,5 +1,5 @@
 opendrupal_pegi.game_form:
-  title: 'Setting Number of Game Reviews'
+  title: 'Game Reviews Configuration'
   description: 'Game Review listings.'
   route_name: opendrupal_pegi.game_form
   parent: system.admin_config_system
