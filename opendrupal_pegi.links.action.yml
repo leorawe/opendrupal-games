@@ -4,4 +4,4 @@ opendrupal_pegi.game_add:
     node_type: 'game'
   title: 'Add Game Review'
   appears_on:
-    - opendrupal_pegi.game_form
+    - opendrupal_pegi.game_settings_form

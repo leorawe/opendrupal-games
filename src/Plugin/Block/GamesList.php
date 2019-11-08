@@ -32,10 +32,10 @@ class GamesList extends BlockBase {
    *   
    */
   protected function getGameNodes() {
-      $config = \Drupal::config('opendrupal_pegi.settings');
-      $maxitems= intval($config->get('opendrupal_pegi.max_items'));
-      $max = is_int($maxitems)? $maxitems : 5;
-      //Using entity query & loadMultiple
+      $config = \Drupal::config('opendrupalpegi.settings');
+    //  $maxitems= intval($config->get('opendrupal_pegi.block_link_limit'));
+    //  $max = is_int($maxitems)? $maxitems : 5;
+      $max = $config->get('opendrupalpegi.block_link_limit');
       //$max = 5;
       $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
       ->condition('type', 'game')
@@ -56,13 +56,13 @@ class GamesList extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    //$config = \Drupal::config('opendrupal_pegi.settings');
-    //$maxitems= $config->get('opendrupal_pegi.max_items');
+    //$config = \Drupal::config('opendrupalpegi.settings');
+    //$foo = $config->get('opendrupalpegi.block_link_limit');
     $gamereviews = $this->getGameNodes();
     $gamelist = [];
     foreach ($gamereviews as $game) {
         // $gamelist[]=$game->title->value;
-        //$gamelist[]= intval($maxitems);
+        //$gamelist[]= $foo;
         $gamelist[]=$game->toLink();
      }
     
@@ -70,7 +70,7 @@ class GamesList extends BlockBase {
     $cachableMetadata = new CacheableMetadata();
     $cachableMetadata->setCacheContexts(['user.permissions']);
     $cachableMetadata->setCacheTags(['node_list']);
-    $cachableMetadata->setCacheTags(['config:opendrupal_pegi.settings']);
+    $cachableMetadata->setCacheTags(['config:opendrupalpegi.settings']);
     //$items = ["this is one","another item", "oh, my","item this is"];
     $build = [
       '#theme' => 'item_list',
