@@ -43,8 +43,8 @@ class OpendrupalPegiController extends ControllerBase {
     //   '#theme' => 'item_list',
     //   '#items' => $gamelist,
     // );
-    $config = \Drupal::config('opendrupalpegi.settings');
-    $limit = $config->get('opendrupalpegi.page_link_limit');
+    $config = \Drupal::config('opendrupal_pegi.settings');
+    $limit = $config->get('opendrupal_pegi.page_link_limit');
     $limit > 0 ? $limit : 3;
     //$limit = 3;
 

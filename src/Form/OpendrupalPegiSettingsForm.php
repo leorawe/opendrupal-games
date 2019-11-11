@@ -21,13 +21,13 @@ class OpendrupalPegiSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return ['opendrupalpegi.settings'];
+    return ['opendrupal_pegi.settings'];
   }
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('opendrupalpegi.settings');
+    $config = $this->config('opendrupal_pegi.settings');
 
 
     //up to how many links are allowed?
@@ -35,14 +35,14 @@ class OpendrupalPegiSettingsForm extends ConfigFormBase {
     $form['block_links']=[
       '#type' => 'select',
       '#title' => $this->t('Links in Game Review Block'),
-      '#default_value' => $config->get('opendrupalpegi.block_link_limit'),
+      '#default_value' => $config->get('opendrupal_pegi.block_link_limit'),
       '#options' => array_combine($options, $options),
       '#description' => $this->t('Default number of game review links displayed in block.'),
     ];
     $form['page_links']=[
       '#type' => 'select',
       '#title' => $this->t('Links on Game Review Page'),
-      '#default_value' => $config->get('opendrupalpegi.page_link_limit'),
+      '#default_value' => $config->get('opendrupal_pegi.page_link_limit'),
       '#options' => array_combine($options, $options),
       '#description' => $this->t('Default number of game review links displayed on page.'),
     ];
@@ -53,9 +53,9 @@ class OpendrupalPegiSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config('opendrupalpegi.settings')
-      ->set('opendrupalpegi.block_link_limit', $form_state->getValue('block_links'))
-      ->set('opendrupalpegi.page_link_limit', $form_state->getValue('page_links'))
+    $this->config('opendrupal_pegi.settings')
+      ->set('opendrupal_pegi.block_link_limit', $form_state->getValue('block_links'))
+      ->set('opendrupal_pegi.page_link_limit', $form_state->getValue('page_links'))
       ->save();
 
     parent::submitForm($form, $form_state);
