@@ -47,6 +47,12 @@ class OpendrupalPegiSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Default number of game review links displayed on page.'),
     ];
 
+    $form['page_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Page Title'),
+      '#default_value' => $config->get('opendrupal_pegi.page_title_setting'),
+    ];  
+
     return parent::buildForm($form, $form_state);
   }
   /**
@@ -56,6 +62,7 @@ class OpendrupalPegiSettingsForm extends ConfigFormBase {
     $this->config('opendrupal_pegi.settings')
       ->set('opendrupal_pegi.block_link_limit', $form_state->getValue('block_links'))
       ->set('opendrupal_pegi.page_link_limit', $form_state->getValue('page_links'))
+      ->set('opendrupal_pegi.page_title_setting', $form_state->getValue('page_title'))
       ->save();
 
     parent::submitForm($form, $form_state);

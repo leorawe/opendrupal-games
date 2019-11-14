@@ -1,3 +1,4 @@
 opendrupal_pegi:
   page_link_limit: 5
   block_link_limit: 3
+  page_title_setting: "Frogs Love to Sing"
