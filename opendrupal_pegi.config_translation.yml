@@ -1,0 +1,5 @@
+opendrupal_pegi.settings:
+  title: 'Game Configuration Form'
+  base_route_name: opendrupal_pegi.settings
+  names:
+    - opendrupal_pegi.settings
