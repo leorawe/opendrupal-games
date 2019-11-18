@@ -29,7 +29,7 @@ class OpendrupalPegiController extends ControllerBase {
    */
   public function getTitle() {
     $config = \Drupal::config('opendrupal_pegi.settings');
-    return $config->get('opendrupal_pegi.page_title_setting');
+    return $config->get('page_title_setting');
   }
 
   /** 
@@ -52,7 +52,7 @@ class OpendrupalPegiController extends ControllerBase {
     //   '#items' => $gamelist,
     // );
     $config = \Drupal::config('opendrupal_pegi.settings');
-    $limit = $config->get('opendrupal_pegi.page_link_limit');
+    $limit = $config->get('page_link_limit');
     $limit > 0 ? $limit : 3;
     //$limit = 3;
 

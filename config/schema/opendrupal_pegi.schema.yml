@@ -6,7 +6,7 @@ opendrupal_pegi.settings:
       label: 'Games page title'
     page_link_limit:
       type: integer
-      label: 'Games per page'
+      label: 'Game Reviews per page'
     block_link_limit:
       type: integer
-      label: 'Games per block'
+      label: 'Game Reviews per block'

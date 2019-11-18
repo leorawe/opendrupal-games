@@ -35,14 +35,14 @@ class OpendrupalPegiSettingsForm extends ConfigFormBase {
     $form['block_links']=[
       '#type' => 'select',
       '#title' => $this->t('Links in Game Review Block'),
-      '#default_value' => $config->get('opendrupal_pegi.block_link_limit'),
+      '#default_value' => $config->get('block_link_limit'),
       '#options' => array_combine($options, $options),
       '#description' => $this->t('Default number of game review links displayed in block.'),
     ];
     $form['page_links']=[
       '#type' => 'select',
       '#title' => $this->t('Links on Game Review Page'),
-      '#default_value' => $config->get('opendrupal_pegi.page_link_limit'),
+      '#default_value' => $config->get('page_link_limit'),
       '#options' => array_combine($options, $options),
       '#description' => $this->t('Default number of game review links displayed on page.'),
     ];
@@ -50,7 +50,7 @@ class OpendrupalPegiSettingsForm extends ConfigFormBase {
     $form['page_title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Page Title'),
-      '#default_value' => $config->get('opendrupal_pegi.page_title_setting'),
+      '#default_value' => $config->get('page_title_setting'),
     ];  
 
     return parent::buildForm($form, $form_state);
@@ -60,9 +60,9 @@ class OpendrupalPegiSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('opendrupal_pegi.settings')
-      ->set('opendrupal_pegi.block_link_limit', $form_state->getValue('block_links'))
-      ->set('opendrupal_pegi.page_link_limit', $form_state->getValue('page_links'))
-      ->set('opendrupal_pegi.page_title_setting', $form_state->getValue('page_title'))
+      ->set('block_link_limit', $form_state->getValue('block_links'))
+      ->set('page_link_limit', $form_state->getValue('page_links'))
+      ->set('page_title_setting', $form_state->getValue('page_title'))
       ->save();
 
     parent::submitForm($form, $form_state);

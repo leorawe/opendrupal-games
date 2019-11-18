@@ -35,7 +35,7 @@ class GamesList extends BlockBase {
      $config = \Drupal::config('opendrupal_pegi.settings');
     //  $maxitems= intval($config->get('opendrupal_pegi.block_link_limit'));
     //  $max = is_int($maxitems)? $maxitems : 5;
-    $max = $config->get('opendrupal_pegi.block_link_limit');
+    $max = $config->get('block_link_limit');
     //$max = 5;
       $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
       ->condition('type', 'game')
