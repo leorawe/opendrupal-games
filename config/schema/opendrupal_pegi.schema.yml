@@ -1,0 +1,12 @@
+opendrupal_pegi.settings:
+  type: config_object
+  mapping:
+    page_title_setting:
+      type: label
+      label: 'Games page title'
+    page_link_limit:
+      type: integer
+      label: 'Games per page'
+    block_link_limit:
+      type: integer
+      label: 'Games per block'
