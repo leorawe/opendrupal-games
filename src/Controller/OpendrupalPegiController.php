@@ -9,7 +9,6 @@ namespace Drupal\opendrupal_pegi\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Returns responses for OpenDrupal Pegi module routes.

@@ -7,11 +7,11 @@ namespace Drupal\opendrupal_pegi\Plugin\Block;
 //use Drupal\config_override_integration_test\CacheabilityMetadataConfigOverride;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\CacheableMetadata;
-//use Drupal\Core\Annotation\Translation;
-//use Drupal\Core\Entity\EntityTypeManager;
-//use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\node\Entity\Node;
-//use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 //use Drupal\Core\Cache\CacheableDependencyInterface;
 
 /**
@@ -23,7 +23,42 @@ use Drupal\node\Entity\Node;
  * )
  */
 
-class GamesList extends BlockBase {
+class GamesList extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * 
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(array $configuration, $plugin_id,$plugin_definition,EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer) {
+    parent::__construct($configuration, $plugin_id,$plugin_definition);
+    $this->entityTypeManager = $entity_type_manager;
+    $this->renderer = $renderer;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id,$plugin_definition) {
+    return new static($configuration, $plugin_id,$plugin_definition,
+      $container->get('entity_type.manager'),
+      $container->get('renderer')
+    );
+  }
 
  /**
    * Gets game review nodes .
@@ -37,19 +72,20 @@ class GamesList extends BlockBase {
     //  $max = is_int($maxitems)? $maxitems : 5;
     $max = $config->get('block_link_limit');
     //$max = 5;
-      $gameids = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
+      $gameids = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'game')
       ->condition('status', 1)
       ->sort('nid', 'DESC')
       ->range(0, $max)
       ->execute();
-      $gamereviews = Node::loadMultiple($gameids);
+      //$gamereviews = Node::loadMultiple($gameids);
      //$entities = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'page']);
      //current(\Drupal::entityTypeManager()->getStorage('node') ->loadByProperties( [ 'title' => $title, 'type' => 'authority' ] ) ); 
      
      //Using the storage object
      //$games = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'game']);
-    return ($gamereviews);
+    //return ($gamereviews);
+    return $this->entityTypeManager->getStorage('node')->loadMultiple($gameids);
   }
 
   /**
