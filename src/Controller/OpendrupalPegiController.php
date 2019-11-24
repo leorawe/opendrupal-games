@@ -9,6 +9,7 @@ namespace Drupal\opendrupal_pegi\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Returns responses for OpenDrupal Pegi module routes.
@@ -55,7 +56,7 @@ class OpendrupalPegiController extends ControllerBase {
    * Returns a page title.
    */
   public function getTitle() {
-    $config = \Drupal::config('opendrupal_pegi.settings');
+    $config = $this->config('opendrupal_pegi.settings');
     return $config->get('page_title_setting');
   }
 
@@ -78,7 +79,7 @@ class OpendrupalPegiController extends ControllerBase {
     //   '#theme' => 'item_list',
     //   '#items' => $gamelist,
     // );
-    $config = \Drupal::config('opendrupal_pegi.settings');
+    $config = $this->config('opendrupal_pegi.settings');
     $limit = $config->get('page_link_limit');
     $limit > 0 ? $limit : 3;
     //$limit = 3;
