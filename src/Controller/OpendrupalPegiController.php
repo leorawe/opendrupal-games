@@ -8,12 +8,39 @@
 namespace Drupal\opendrupal_pegi\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-//use Drupal\Core\Entity\EntityTypeManager;
-
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Returns responses for OpenDrupal Pegi module routes.
  */
 class OpendrupalPegiController extends ControllerBase {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  
+    /**
+   * 
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * Content controller callback: View games overview page.
@@ -68,11 +95,13 @@ class OpendrupalPegiController extends ControllerBase {
     ->sort('created', 'DESC')
     ->pager($limit)
     ->execute();
-   $games = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($result);
+    //$games = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($result);
+
+   $games = $this->entityTypeManager()->getStorage('node')->loadMultiple($result);
    $count_games = count($games);
    if ($count_games !== 0) {
       foreach ($games as $game) {
-        $build['games'][] = \Drupal::entityTypeManager()->getViewBuilder('node')
+        $build['games'][] = $this->entityTypeManager()->getViewBuilder('node')
         ->view($game, 'teaser');
         }
 
