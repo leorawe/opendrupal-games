@@ -112,10 +112,10 @@ class OpendrupalPegiController extends ControllerBase {
   }
     else {
       
-      $build['top'] = ['#markup' => '<p>no published game reviews found</p>'];
+      $build['empty'] = ['#markup' => $this->t('<p>no published game reviews found</p>')];
     }
 
-    $build['footer'] = ['#markup' => 'My Footer: test experiment : '. $count_games];
+    $build['footer'] = ['#markup' => $this->t('My Footer: test experiment : '. $count_games)];
    
     return $build;
   }
