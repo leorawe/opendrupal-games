@@ -10,7 +10,7 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\node\Entity\Node;
+//use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 //use Drupal\Core\Cache\CacheableDependencyInterface;
 
@@ -116,6 +116,7 @@ class GamesList extends BlockBase implements ContainerFactoryPluginInterface {
     //$build['#cache']['contexts'][] = 'user.permissions';
 
     $cachableMetadata->applyTo($build);
+    //$build['#cache']['tags'][] = 'opendrupal_pegi.new_game';
     return $build;
   }
 }

@@ -116,7 +116,7 @@ class OpendrupalPegiController extends ControllerBase {
     }
 
     $build['footer'] = ['#markup' => $this->t('My Footer: test experiment : '. $count_games)];
-   
+    //$build['#cache']['tags'][] = 'opendrupal_pegi.new_game';
     return $build;
   }
 

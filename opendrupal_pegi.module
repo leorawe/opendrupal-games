@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Drupal hook implementations for OpenDrupal Pegi module.
+ */
+
+// /**
+//  * The node type used for Game review content.
+//  */
+// define('OD_PEGI_GAME_CONTENT_TYPE', 'game');
+
+// /**
+//  * The taxonomy vocabulary used for Pegi categories.
+//  */
+// define('OD_PEGI_TAXONOMY_VOCABULARY', 'pegi_rating');
+
+// /**
+//  * The field that is used to reference from the game to its Pegy category.
+//  */
+// define('OD_PEGI_GAME_REFERENCE', 'field__ref_pegi');
+
+// /**
+//  * The Pegi taxonomy term field that contains the allowed age.
+//  */
+// define('OD_PEGI_FIELD_ALLOWED_AGE', 'field_allowed_age');
+
+// /**
+//  * The profile field that contains the user's age.
+//  */
+// define('OD_PEGI_FIELD_USER_AGE', 'field_user_age');
+
+/**
+ * The field that contains the pegi label image.
+ */
+define('OPENDRUPAL_PEGI_TERM_IMAGE_FIELD', 'field_pegi_image');
